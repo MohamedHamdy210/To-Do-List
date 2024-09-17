@@ -1,0 +1,24 @@
+body{
+    display: grid;
+    grid-template-columns:1fr 3fr ;
+}
+.hidden{
+    display: none;
+}
+.side{
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    
+}
+#plus{
+    align-self: center;
+}
+.logo{
+    display: flex;
+    justify-content: center;
+    
+}
+.side img{
+    max-width: 5rem;
+}
