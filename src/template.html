@@ -20,15 +20,25 @@
         </nav>
         <img src="assets/plus-box (1).svg" alt="Plus" id="plus" >
     </div>
-    <div class="content"></div>
+    <div id="content"></div>
 
-    <form action="#" id="taskForm" class="hidden">
-        <input type="text" id="title">
-        <input type="text" id="desc">
-        <input type="text" id="date">
-        <input type="text" id="p">
-        <input type="text" id="list">
-        <button type="submit"  id="submit">submit</button>
-    </form>
+    <div id="taskForm" class="form hidden">
+        <label for="title">Task Title: <input type="text" id="title"></label>
+            <label for="desc">Description: <input type="text" id="desc"></label>
+            <label for="date">Due Date: <input type="date" id="date"></label>
+            <label for="p">Priority: <select id="p">
+                <option value="1">Very Important</option>
+                <option value="2">Important</option>
+                <option value="3">Normal</option>
+            </select></label>
+            <label for="list">Add To list:
+                <select id="list">
+                    <option value="1">Home</option>
+                    <option value="2">Work</option>
+                    <option value="3">Personal</option>
+                </select>
+        </label>
+            <button type="submit"  id="submit">submit</button>
+    </div>
 </body>
 </html>
