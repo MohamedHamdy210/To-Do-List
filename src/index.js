@@ -13,16 +13,14 @@ const doneBtn=document.getElementById("done");
 const formContainer=document.getElementById("formContainer");
 window.doneTask =function (buttonEl){
     const doneIndex=tasks.findIndex((item)=>item.id===buttonEl.parentElement.parentElement.id);
-    console.log(tasks[doneIndex]);
     if(tasks[doneIndex].list!=="Done"){
     tasks[doneIndex].list="Done";
     localStorage.setItem("tasks",JSON.stringify(tasks));
     const displayIndex=taskList.findIndex((item)=>item.id===buttonEl.parentElement.parentElement.id);
     taskList.splice(displayIndex, 1);
-    console.log(tasks[doneIndex]);}
 
     updateContainer();
-    
+    }   
 }
 window.deleteTask= function (buttonEl){
     const delIndex=tasks.findIndex((item)=>item.id===buttonEl.parentElement.parentElement.id);
@@ -54,7 +52,6 @@ const updateContainer=()=> {
     });
     }
     else{
-        console.log("hhhhhh")
         content.innerHTML=`<h1>No Tasks</h1>`;
     } 
 }
@@ -67,5 +64,4 @@ homeBtn.addEventListener("click",()=>{getTask("Home")});
 workBtn.addEventListener("click",()=>{getTask("Work")});
 personalBtn.addEventListener("click",()=>{getTask("Personal")});
 doneBtn.addEventListener("click",()=>{getTask("Done")});
-
-export {updateContainer};
+export {updateContainer,};

@@ -1,4 +1,3 @@
-import { updateContainer } from ".";
 import { getTask } from "./gettask";
 const tasks=JSON.parse(localStorage.getItem("tasks"))||[];
 const inTitle=document.getElementById("title");
@@ -20,7 +19,6 @@ const addTask= () =>{
         priority:inP.value,
         list:inList.value,
     }    
-    console.log(taskObj);
     tasks.push(taskObj);
     localStorage.setItem("tasks",JSON.stringify(tasks));
     form.classList.toggle("flex");
