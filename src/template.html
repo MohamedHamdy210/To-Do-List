@@ -11,34 +11,37 @@
             <img src="assets/list-box.svg" alt="">
             <h1>TO DO</h1>
         </div>
-        <nav class="side">
-            <button>Home</button>
-            <button>Work</button>
-            <button>Personal</button>
-            <button>Done</button>
+        <nav>
+            <button id="home">Home</button>
+            <button id="work">Work</button>
+            <button id="personal">Personal</button>
+            <button id="done">Done</button>
 
         </nav>
-        <img src="assets/plus-box (1).svg" alt="Plus" id="plus" >
+        <button class="plus"><img  src="assets/plus-box (1).svg" alt="Plus" id="plus" ></button>
     </div>
     <div id="content"></div>
 
-    <div id="taskForm" class="form hidden">
-        <label for="title">Task Title: <input type="text" id="title"></label>
-            <label for="desc">Description: <input type="text" id="desc"></label>
-            <label for="date">Due Date: <input type="date" id="date"></label>
-            <label for="p">Priority: <select id="p">
-                <option value="1">Very Important</option>
-                <option value="2">Important</option>
-                <option value="3">Normal</option>
-            </select></label>
-            <label for="list">Add To list:
-                <select id="list">
-                    <option value="1">Home</option>
-                    <option value="2">Work</option>
-                    <option value="3">Personal</option>
-                </select>
-        </label>
-            <button type="submit"  id="submit">submit</button>
+    <div class="formContainer hidden" id="formContainer">
+        <div id="taskForm" class="form hidden">
+            <label for="title">Task Title: <input type="text" id="title"></label>
+                <label for="desc">Description: <input type="text" id="desc"></label>
+                <label for="date">Due Date: <input type="date" id="date"></label>
+                <label for="p">Priority: <select id="p">
+                    <option value="vImportant">Very Important</option>
+                    <option value="important">Important</option>
+                    <option value="normal">Normal</option>
+                </select></label>
+                <label for="list">Add To list:
+                    <select id="list">
+                        <option value="Home">Home</option>
+                        <option value="Work">Work</option>
+                        <option value="Presonal">Personal</option>
+                    </select>
+            </label>
+                <button type="cancel"  id="cancel">Cancel</button>
+                <button type="submit"  id="submit">Submit</button>
+        </div>
     </div>
 </body>
 </html>

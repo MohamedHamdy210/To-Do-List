@@ -1,135 +1,71 @@
 import "./styles.css";
-import pen from './assets/pencil.svg';
 import check from './assets/check-bold.svg'
-const peronalList=[];
-const homeList=[];
-const workList=[];
-const doneList=[];
-let taskList=JSON.parse(localStorage.getItem("home"));
-const inTitle=document.getElementById("title");
-const inDesc=document.getElementById("desc");
-const inDueDate=document.getElementById("date");
-const inP=document.getElementById("p");
-const inList=document.getElementById("list");
-const submitBtn=document.getElementById("submit");
-const form=document.getElementById("taskForm");
+import bin from './assets/delete.svg'
+import { addTask,tasks } from "./addtask";
+import { getTask , taskList} from "./gettask";
 const add =document.getElementById("plus");
 const content =document.getElementById("content");
+const form=document.getElementById("taskForm");
+const homeBtn=document.getElementById("home");
+const workBtn=document.getElementById("work");
+const personalBtn=document.getElementById("personal");
+const doneBtn=document.getElementById("done");
+const formContainer=document.getElementById("formContainer");
+window.doneTask =function (buttonEl){
+    const doneIndex=tasks.findIndex((item)=>item.id===buttonEl.parentElement.parentElement.id);
+    console.log(tasks[doneIndex]);
+    if(tasks[doneIndex].list!=="Done"){
+    tasks[doneIndex].list="Done";
+    localStorage.setItem("tasks",JSON.stringify(tasks));
+    const displayIndex=taskList.findIndex((item)=>item.id===buttonEl.parentElement.parentElement.id);
+    taskList.splice(displayIndex, 1);
+    console.log(tasks[doneIndex]);}
 
-const addTask= () =>{
-    event.preventDefault;
-    const taskObj={
-        id: inTitle.value.toLowerCase().split(" ").join("-")+inDueDate.value+list.value,
-        title: inTitle.value,
-        description:inDesc.value,
-        dueDate:inDueDate.value,
-        priority:inP.value,
-        list:parseInt(inList.value),
-    }    
-    console.log(taskObj);
-    switch (taskObj.list) {
-        case 1 :
-            homeList.push(taskObj);    
-            localStorage.setItem("home",JSON.stringify(homeList));
-            break;
-        case 2 :
-            workList.push(taskObj);    
-            localStorage.setItem("work",JSON.stringify(workList));
-            break;
-        case 3 :
-            peronalList.push(taskObj);    
-            localStorage.setItem("personal",JSON.stringify(peronalList));
-            break;
-            
-       
-        default:
-            alert("Error");
-            return;
-        
-    }
-    form.classList.toggle("flex");
-    getTask(taskObj.list);
+    updateContainer();
+    
+}
+window.deleteTask= function (buttonEl){
+    const delIndex=tasks.findIndex((item)=>item.id===buttonEl.parentElement.parentElement.id);
+    const listIndex=taskList.findIndex((item)=>item.id===buttonEl.parentElement.parentElement.id);
+    buttonEl.parentElement.remove();
+    tasks.splice(delIndex, 1);
+    taskList.splice(listIndex, 1);
+    localStorage.setItem("tasks",JSON.stringify(tasks));
+    updateContainer()
+}
 
-}
-const getTask=(list)=> {
-    switch (list) {
-        case 1 :
-            taskList=JSON.parse(localStorage.getItem("home"));
-            break;
-        case 2 :
-            taskList=JSON.parse(localStorage.getItem("work"));
-            break;
-        case 3 :
-            taskList=JSON.parse(localStorage.getItem("personal"));
-            break;
-        case 4 :
-            taskList=JSON.parse(localStorage.getItem("done"));
-            break;    
-        
-        default:
-            alert("Error");
-            return;
-        
-    }
-    
-    console.log(taskList);
-    
-   updateContainer(); 
-}
 const updateContainer=()=> {
     content.innerHTML=``;
-    taskList.forEach(task => {
-        content.innerHTML+=`<div class="card ${task.priority}" id="${task.id}" >
+    if(taskList.length){
+        content.innerHTML=`<h1>${taskList[0].list}</h1>`
+        taskList.forEach(task => {
+        content.innerHTML+=`<div class="card ${task.priority} ${task.list==="Done"?"Done":""}" id="${task.id}" >
             <div class="info">
                 <h2>Title: ${task.title}</h1>
                 <h2>Description: ${task.description}</h1>
                 <h2>Due Date: ${task.dueDate}</h1>
             </div>
-            
-                <button onclick="doTask(this)" type="button"><img src=${check} "></button>
-            
+           <div class="btns">
+               <img src=${bin} onclick="deleteTask(this)">               
+               <img src=${check} onclick="doneTask(this)">
+           </div>
+              
         </div>`
     });
-    
+    }
+    else{
+        console.log("hhhhhh")
+        content.innerHTML=`<h1>No Tasks</h1>`;
+    } 
 }
 
-
-const doTask = (buttonEl)=>{
-    const type =buttonEl.parentElement.list ;
-    let index;
-    switch (type) {
-        case 1 :
-            
-            index=homeList.findIndex((item)=>item.id===buttonEl.parentElement.id);
-            buttonEl.parentElement.remove();
-            homeList.splice(index, 1);
-            localStorage.setItem("home", JSON.stringify(homeList));
-            break;
-        case 2 :
-            index=workList.findIndex((item)=>item.id===buttonEl.parentElement.id);
-            buttonEl.parentElement.remove();
-            workList.splice(index, 1);
-            localStorage.setItem("work", JSON.stringify(workList));
-            
-            break;
-        case 3 :
-            index=peronalList.findIndex((item)=>item.id===buttonEl.parentElement.id);
-            buttonEl.parentElement.remove();
-            peronalList.splice(index, 1);
-            localStorage.setItem("personal", JSON.stringify(peronalList));
-            
-            break;
-        
-        default:
-            alert("Error");
-            return;
-    }
-    updateContainer()
-    
-
-};
-
-updateContainer()
-submitBtn.addEventListener("click",addTask);
+getTask();
 add.addEventListener("click",()=>{form.classList.toggle("flex");
+formContainer.classList.toggle("hidden");
 });
+homeBtn.addEventListener("click",()=>{getTask("Home")});
+workBtn.addEventListener("click",()=>{getTask("Work")});
+personalBtn.addEventListener("click",()=>{getTask("Personal")});
+doneBtn.addEventListener("click",()=>{getTask("Done")});
+
+export {updateContainer};
